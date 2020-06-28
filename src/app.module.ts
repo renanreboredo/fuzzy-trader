@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('')
+    MongooseModule.forRoot(`mongodb+srv://root:${ process.env.DATABASE_PASSWORD }@fuzzytrader.oaqab.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority`)
   ],
   controllers: [AppController],
   providers: [AppService],
