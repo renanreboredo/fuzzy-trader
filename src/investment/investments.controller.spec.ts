@@ -20,18 +20,18 @@ describe('InvestmentsController', () => {
     expect(investmentsController).toBeDefined();
   });
 
-  it('should suggest 3 best options for a certain amount of money', () => {
-    expect(investmentsController.get(10.0).data).toEqual({
+  it('should suggest 3 best options for a certain amount of money', async () => {
+    expect((await investmentsController.get(10.0)).data).toEqual({
       conservative: 1,
       moderate: 2,
       aggressive: 3,
     });
   });
 
-  it('should return error response if amount is negative', () => {
-    expect(investmentsController.get(-10.0).message).toEqual(
+  it('should return error response if amount is negative', async () => {
+    expect((await investmentsController.get(-10.0)).message).toEqual(
       'Amount cannot be negative',
     );
-    expect(investmentsController.get(-10.0).error).toBeTruthy();
+    expect((await investmentsController.get(-10.0)).error).toBeTruthy();
   });
 });
