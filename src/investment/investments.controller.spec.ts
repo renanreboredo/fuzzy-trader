@@ -18,11 +18,16 @@ describe('InvestmentsController', () => {
         expect(investmentsController).toBeDefined();
     });
 
-    it('should sugest 3 best options for a certain amount of money', () => {
-        expect(investmentsController.get(10.00)).toEqual({
+    it('should suggest 3 best options for a certain amount of money', () => {
+        expect(investmentsController.get(10.00).data).toEqual({
             conservative: 1,
             moderate: 2,
             aggressive: 3
         });
+    });
+
+    it('should return error response if amount is negative', () => {
+        expect(investmentsController.get(-10.00).message).toEqual('Amount cannot be negative');
+        expect(investmentsController.get(-10.00).error).toBeTruthy();
     });
 });
