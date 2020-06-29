@@ -1,6 +1,6 @@
 export interface Response<T> {
-    code: number;
-    message: string;
-    data: T;
-    error: boolean;
+  code: number;
+  message: string;
+  data: T;
+  error: boolean;
 }

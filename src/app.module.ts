@@ -12,9 +12,11 @@ import { join } from 'path';
       rootPath: join(__dirname, '..', 'dist/app'),
     }),
     InvestmentModule,
-    MongooseModule.forRoot(`mongodb+srv://root:${process.env.DATABASE_PASSWORD}@fuzzytrader.oaqab.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority`)
+    MongooseModule.forRoot(
+      `mongodb+srv://root:${process.env.DATABASE_PASSWORD}@fuzzytrader.oaqab.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority`,
+    ),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
