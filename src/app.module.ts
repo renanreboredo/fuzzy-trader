@@ -9,7 +9,7 @@ import { join } from 'path';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'app'),
+      rootPath: join(__dirname, '..', 'dist/app'),
     }),
     InvestmentModule,
     MongooseModule.forRoot(`mongodb+srv://root:${process.env.DATABASE_PASSWORD}@fuzzytrader.oaqab.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority`)
