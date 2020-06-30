@@ -1,75 +1,57 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# Fuzzy Trader
+## Especificação
 
-[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
-[travis-url]: https://travis-ci.org/nestjs/nest
-[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
-[linux-url]: https://travis-ci.org/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
-<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
-<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
-  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Requisitos:
 
-## Description
+   Você está responsável por desenvolver uma ferramenta de apoio a decisão de investimento. Uma pessoa precisa não apenas acompanhar quanto custa seus investimentos (carteira) como precisa de apoio antes de fazê-lo.
+   Para isso queremos construir uma aplicação que permita ao usuário:
+Informar um valor (em dólar) que deseja aplicar.
+Com base neste valor, devemos apresentar um conjunto de ativos sugeridos (entre criptomoedas e ações) com informações de apoio a esta decisão.
+Então o usuário deve escolher qual ativo investirá o montante. Este fará parte da sua carteira.
+Deve-se então consolidar a sua carteira mostrando a quantidade total de cada ativo e o valor atual do mesmo (e a soma da carteira)
+  Para a escolher dos ativos, pode-se usar um subconjunto limitado de criptomoedas e ações a sua escolha. Para consultar seus valores se pode usar a API a sua escolha e que te deixa mais confortável. Minha sugestão é utilizar algo como https://www.blockchain.com/api/exchange_rates_api , https://apiv2.bitcoinaverage.com/#price-data , https://www.alphavantage.co/documentation/ , https://www.worldtradingdata.com/ .
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Critérios:
 
-## Installation
+   Minha avaliação é baseada na escrita do seu código e na forma como você desenvolve a solução. Use seu código para me apresentar como você desenvolve seu raciocínio e resolve o problema apresentado.
+   Não está sendo avaliada a extensão do seu conhecimento sobre bibliotecas, sintaxe ou da tecnologia utilizada. Dessa forma, não se preocupe em me mostrar quanto você conhece a ferramenta, mas sim como você a utiliza.
+   A solução pode ser desenvolvida na plataforma ou linguagem em que se sentir mais confortável. Na bx a maior parte da nossa stack é Ruby on Rails, React.js e MongoDB. Mas isso não deve guiar seu exercício. Pois, caso não tenha familiaridade com a plataforma, teremos espaço para seu aprendizado e desenvolvimento durante o trabalho.
 
-```bash
-$ npm install
+## Solução
+
+A solução atualmente se encontra incompleta. Ela apenas sugere 3 opções de investimento para um determinado valor, com três classificações: conservador, moderado e agressivo. Na modalidade conservadora, a API escolhe entre duas ações com índice Beta de variação baixo, IBM e ABEV, e determina através de um cálculo baseado nos dez últimos valores de máximo e mínimo das duas ações qual vale mais a pena ser escolhida. Na modalidade moderada, escolhe de duas ações com Índice Beta mediano, VALE e ITUB. Na modalidade agressiva, a API considera a Bitcoin como valor de investimento, mas apenas se o "Crypto Rating", conforme dado pela [Alpha Advantage](https://www.alphavantage.co/documentation/#crypto-ratings) está acima de Atrativo.
+
+Nas três, o investimento é ignorado se o valor não é suficiente ou é negativo.
+
+### Rodando a aplicação
+
+Para poder rodar a aplicação, é necessário ter o nodejs e o npm instalados na máquina, e dispor de uma chave para acesso à API da Alpha Advantage, que pode ser encontrada [aqui](https://www.alphavantage.co/support/#api-key)
+
+Para rodar a aplicação basta rodar o comando:
+```
+   DATABASE_PASSWORD=root ALPHA_ADVANTAGE_KEY=<SUA_ALPHA_ADVANTAGE_KEY> npm run start:dev
 ```
 
-## Running the app
+O comando vai gerar uma build do frontend e depois rodar o backend em modo watch. Caso uma modificação seja feita no frontend, é necessário rodar o comando novamente.
 
-```bash
-# development
-$ npm run start
+### Tecnologias utilizadas:
 
-# watch mode
-$ npm run start:dev
+- NestJS para a API
+- Angular para o frontend
 
-# production mode
-$ npm run start:prod
-```
+#### Motivação
+Como estou afastado do backend voltado para Web APIs tem um tempo, eu tentei ir pela rota Rails inicialmente por já ter trabalhado com e ser a forma mais fácil teoricamente de construir uma aplicação MVC completa do zero. Porém, com pouco tempo mexendo na nova versão do rails, percebi que a tecnologia estava diferente o suficiente do tempo que eu mexia para ser muito complexo aprender em tão pouco tempo. Portanto, eu optei pelo NestJS por se assemelhar ao Angular, que é a ferramenta que trabalho hoje. Embora ainda não foi a melhor das experiências, tenho certeza que foi a melhor decisão para o momento, pois consegui entender a aplicação e desenvolver parte dela.
 
-## Test
+Embora não implementado, o banco escolhido foi o MongoDB por dois motivos principais: a aplicação não demandaria muitas operações de relacionamento, então um banco não relacional seria uma boa escolha. Além disso, a velocidade do banco foi considerada pois a ideia inicial era manter uma busca em realtime na api para poder atualizar os dados do usuario, mas logo a API da Alpha Advantage se mostrou aversa a essa possibilidade por suas limitações de requisições, e eu já estava investido demais nela para poder trocar para alguma outra.
 
-```bash
-# unit tests
-$ npm run test
+### Limitações
 
-# e2e tests
-$ npm run test:e2e
+ - O sistema não possui persistência dos dados
+ - Os dados vindos da APIs estão atualmente mockados pela limitação das requisições à API, embora as funções que consomem os dados foram construídas com os endpoints reais e os dados são baseados nos dados de demo no site da Alpha Advantage
 
-# test coverage
-$ npm run test:cov
-```
+### Dificuldades e Próximos passos
+Eu tentei entender a fundo o pouco de mercado de ações que a solução pedia para eu poder fazer a menor quantidade de código possível que atendesse os requisitos, e de uma forma que uma possível pessoa que fosse utilizar essas recomendações se interessaria. Para isso, eu consultei alguns conhecidos sobre como eles pesquisavam sobre ações e obtive algumas informações sobre os índices e formas que iam me ajudar a dar uma recomendação melhor para o usuário. Embora tenha sido interessante esse conhecimento e me deu vários insights sobre o exercicio, acredito que eu tentei ir fundo demais nesse problema e não consegui entregar uma solução suficiente no fim.
 
-## Support
+Próximos passos seriam construir a lógica de wallet, melhorar a heurística de recomendação e criar uma forma de conseguir consumir os dados sem estourar o plano de consumo. Um problema grande que descobri entre minhas pesquisas é que os dados são atualizados com uma periodicidade bem grande em outras plataformas de recomendação de ações, então seria interessante colocar esse diferencial para funcionar, mas acredito que descobri porque é difícil dessas ferramentas implementarem isso haha
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](LICENSE).
+## Agradeço pela oportunidade desde já
