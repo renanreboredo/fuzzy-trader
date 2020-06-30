@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 import { Response } from '../models/Response';
 import { AlphaAdvantageService } from './services/alpha-advantage.service';
 import { RecommendationService } from './services/recommendation.service';
