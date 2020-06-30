@@ -7,7 +7,7 @@ export class AlphaAdvantageService {
 
   constructor(private http: HttpService) {}
 
-  async getStockValuesMonth() {
+  async getStockValuesMonth(): Promise<{ conservative: any; moderate: any }> {
     const conservative = [
       (await this.http.get(this.buildStockMonthUrl('ABEV')).toPromise()).data,
       (await this.http.get(this.buildStockMonthUrl('IBM')).toPromise()).data,
@@ -19,7 +19,7 @@ export class AlphaAdvantageService {
     return { conservative, moderate };
   }
 
-  async getStockValuesDay() {
+  async getStockValuesDay(): Promise<{ conservative: any; moderate: any }> {
     const conservative = [
       (await this.http.get(this.buildStockDailyUrl('ABEV')).toPromise()).data,
       (await this.http.get(this.buildStockDailyUrl('IBM')).toPromise()).data,
@@ -44,7 +44,7 @@ export class AlphaAdvantageService {
   }
 
   buildStockDailyUrl(name: string) {
-    return `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${name}&apikey=${process.env.ALPHA_ADVANTAGE_KEY}`;
+    return `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${name}&apikey=${process.env.ALPHA_ADVANTAGE_KEY}`;
   }
 
   buildCryptoRatingUrl() {

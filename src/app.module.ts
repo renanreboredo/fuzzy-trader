@@ -1,3 +1,4 @@
+import { RecommendationService } from './investment/services/recommendation.service';
 import { InvestmentModule } from './investment/investment.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';

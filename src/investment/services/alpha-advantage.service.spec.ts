@@ -23,7 +23,7 @@ describe('AlphaAdvantageService', () => {
   it('should build url for daily stock values correctly', () => {
     process.env = { ...process.env, ALPHA_ADVANTAGE_KEY: '123456' };
     expect(service.buildStockDailyUrl('ABEV3')).toEqual(
-      'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=ABEV3&apikey=123456',
+      'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=ABEV3&apikey=123456',
     );
   });
 
