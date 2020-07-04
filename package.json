@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "nest build && cd client && ng build",
+    "build": "nest build && cd client && npm run build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "npm run build && nest start",
     "start:dev": "npm run build && nest start --watch",
@@ -21,17 +21,6 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@angular-devkit/build-angular": "^0.1000.0",
-    "@angular/animations": "^10.0.1",
-    "@angular/cli": "^10.0.0",
-    "@angular/common": "^10.0.1",
-    "@angular/compiler": "^10.0.1",
-    "@angular/compiler-cli": "^10.0.1",
-    "@angular/core": "^10.0.1",
-    "@angular/forms": "^10.0.1",
-    "@angular/platform-browser": "^10.0.1",
-    "@angular/platform-browser-dynamic": "^10.0.1",
-    "@angular/router": "^10.0.1",
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/mongoose": "^7.0.1",
@@ -42,9 +31,7 @@
     "mongoose": "^5.9.20",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.5.5",
-    "tslib": "^2.0.0",
-    "zone.js": "^0.10.3"
+    "rxjs": "^6.5.5"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",
