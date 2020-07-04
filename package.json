@@ -21,6 +21,10 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@angular-devkit/build-angular": "^0.1000.0",
+    "@angular/cli": "^10.0.0",
+    "@angular/compiler": "^10.0.1",
+    "@angular/compiler-cli": "^10.0.1",
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/mongoose": "^7.0.1",
@@ -31,7 +35,9 @@
     "mongoose": "^5.9.20",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.5.5"
+    "rxjs": "^6.5.5",
+    "tslib": "^2.0.0",
+    "zone.js": "^0.10.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",
