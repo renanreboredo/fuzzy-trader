@@ -1,10 +1,10 @@
-import { InvestmentModule } from './investment/investment.module';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { InvestmentModule } from './investment/investment.module';
 import { WalletModule } from './wallet/wallet.module';
 
 @Module({
