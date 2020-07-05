@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { FinancialAsset } from 'src/domain/FinancialAsset';
+import { FinancialAsset } from 'src/domain/financial-asset';
 import { Response } from 'src/domain/Response';
 
 @Controller()
