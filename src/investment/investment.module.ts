@@ -1,7 +1,7 @@
-import { Module, HttpModule } from '@nestjs/common';
+import { HttpModule, Module } from '@nestjs/common';
+import { AlphaAdvantageService } from '../services/alpha-advantage';
+import { RecommendationService } from '../services/recommendation';
 import { InvestmentsController } from './investments.controller';
-import { AlphaAdvantageService } from './services/alpha-advantage.service';
-import { RecommendationService } from './services/recommendation.service';
 
 @Module({
   imports: [

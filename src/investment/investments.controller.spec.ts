@@ -1,8 +1,8 @@
-import { Test } from '@nestjs/testing';
-import { InvestmentsController } from './investments.controller';
-import { RecommendationService } from './services/recommendation.service';
-import { AlphaAdvantageService } from './services/alpha-advantage.service';
 import { HttpModule } from '@nestjs/common';
+import { Test } from '@nestjs/testing';
+import { AlphaAdvantageService } from '../services/alpha-advantage';
+import { RecommendationService } from '../services/recommendation';
+import { InvestmentsController } from './investments.controller';
 
 describe('InvestmentsController', () => {
   let investmentsController: InvestmentsController;

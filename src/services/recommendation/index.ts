@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { AlphaAdvantageService } from './alpha-advantage.service';
+import { AlphaAdvantageService } from '../alpha-advantage';
 import {
-  mockMonthSeries,
-  mockIntradaySeries,
-  mockCryptoRating,
   mockBitcoinExchangeRate,
-} from './req.mock';
+  mockCryptoRating,
+  mockIntradaySeries,
+  mockMonthSeries,
+} from '../req.mock';
 
 @Injectable()
 export class RecommendationService {
