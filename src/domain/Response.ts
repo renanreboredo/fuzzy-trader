@@ -1,6 +1,8 @@
+import { Record } from './record';
+
 export interface Response<T> {
   code: number;
   message: string;
-  data: T;
-  error: boolean;
+  error?: boolean;
+  data?: Record<T>;
 }
