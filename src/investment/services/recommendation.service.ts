@@ -10,15 +10,15 @@ import {
 @Injectable()
 export class RecommendationService {
   constructor(private alphaAdvantage: AlphaAdvantageService) {}
-  async getRecommendation(amount: number) {
-    const conservative = this.chooseBestOption(
-      [mockIntradaySeries, mockIntradaySeries],
-      [mockMonthSeries, mockMonthSeries],
-    );
-    const moderate = this.chooseBestOption(
-      [mockIntradaySeries, mockIntradaySeries],
-      [mockMonthSeries, mockMonthSeries],
-    );
+  async getRecommendation(amount: number): Promise<any> {
+    const conservative = this.chooseBestOption({
+      day: [mockIntradaySeries, mockIntradaySeries],
+      month: [mockMonthSeries, mockMonthSeries],
+    });
+    const moderate = this.chooseBestOption({
+      day: [mockIntradaySeries, mockIntradaySeries],
+      month: [mockMonthSeries, mockMonthSeries],
+    });
     const aggressive =
       Number(mockCryptoRating['Crypto Rating (FCAS)']['4. fcas score']) > 749 &&
       Number(
@@ -36,13 +36,25 @@ export class RecommendationService {
     };
   }
 
-  chooseBestOption(day: any, month: any) {
-    const first = this.calculateRecommendationIndex(day[0], month[0]);
-    const second = this.calculateRecommendationIndex(day[1], month[1]);
+  chooseBestOption({ day, month }: { day: any; month: any }): any {
+    const first = this.calculateRecommendationIndex({
+      day: day[0],
+      month: month[0],
+    });
+    const second = this.calculateRecommendationIndex({
+      day: day[1],
+      month: month[1],
+    });
     return first.index < second.index ? first.stock : second.stock;
   }
 
-  calculateRecommendationIndex(day, month): { index: number; stock: any } {
+  calculateRecommendationIndex({
+    day,
+    month,
+  }: {
+    day;
+    month;
+  }): { index: number; stock: any } {
     const monthSeries = month['Monthly Time Series'];
     const seriesIndex = [...Array(10).keys()].map((_, index) => {
       const data = monthSeries[Object.keys(monthSeries)[index]];

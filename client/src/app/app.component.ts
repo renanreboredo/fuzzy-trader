@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Response } from '../../../src/models/Response';
+import { Response } from '../../../src/domain/Response';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
