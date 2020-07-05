@@ -11,8 +11,6 @@ export class FinancialAssetsService {
   ) {}
 
   async getByUserId(id: number): Promise<FinancialAsset[]> {
-    return await this.financialAssetsModel
-      .find(asset => asset.user_id === id)
-      .exec();
+    return await this.financialAssetsModel.find().exec();
   }
 }
