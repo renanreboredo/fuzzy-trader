@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { FinancialAsset } from '../domain/financial-asset';
-import { Response } from '../domain/response';
-import { FinancialAssetsService } from '../services/financial-assets';
+import { FinancialAsset } from '../../domain/financial-asset';
+import { Response } from '../../domain/response';
+import { FinancialAssetsService } from '../../services/financial-assets';
 
 @Controller('wallet')
 export class WalletsController {

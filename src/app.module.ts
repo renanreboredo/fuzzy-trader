@@ -5,9 +5,9 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { InvestmentModule } from './investment/investment.module';
-import { UserModule } from './user/user.module';
-import { WalletModule } from './wallet/wallet.module';
+import { InvestmentModule } from './modules/investment/investment.module';
+import { UserModule } from './modules/user/user.module';
+import { WalletModule } from './modules/wallet/wallet.module';
 
 @Module({
   imports: [

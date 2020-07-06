@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { RecommendationService } from '.';
 import { Record, RecordNotFound } from '../../domain/record';
-import { InvestmentModule } from '../../investment/investment.module';
+import { InvestmentModule } from '../../modules/investment/investment.module';
 
 describe('RecommendationService', () => {
   let recommendationService: RecommendationService;

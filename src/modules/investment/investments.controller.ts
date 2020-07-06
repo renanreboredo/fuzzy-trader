@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { Response } from '../domain/response';
-import { RecommendationService } from '../services/recommendation';
+import { Response } from '../../domain/response';
+import { RecommendationService } from '../../services/recommendation';
 
 @Controller('investments')
 export class InvestmentsController {
