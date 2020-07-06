@@ -5,5 +5,5 @@ export const FinancialAssetsSchema = new Schema({
   symbol: String,
   buyingPrice: Number,
   quantity: Number,
-  user_id: Number,
+  user_id: String,
 });

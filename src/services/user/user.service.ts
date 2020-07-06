@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from '../domain/user';
+import { User } from '../../domain/user';
 
 @Injectable()
 export class UserService {
