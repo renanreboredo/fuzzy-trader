@@ -8,7 +8,7 @@ export class WalletsController {
   constructor(private financialAssetsService: FinancialAssetsService) {}
 
   @Get(':id')
-  async getByID(@Param('id') id: number): Promise<Response<FinancialAsset[]>> {
+  async getByID(@Param('id') id: string): Promise<Response<FinancialAsset[]>> {
     const record = await this.financialAssetsService.getByUserId(id);
     return record.found
       ? new Response({

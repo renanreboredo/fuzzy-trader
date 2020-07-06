@@ -12,8 +12,10 @@ export class FinancialAssetsService {
     private readonly financialAssetsModel: Model<FinancialAsset>,
   ) {}
 
-  async getByUserId(id: number): Promise<Maybe<FinancialAsset[]>> {
-    const record = await this.financialAssetsModel.find().exec();
+  async getByUserId(id: string): Promise<Maybe<FinancialAsset[]>> {
+    const record = await this.financialAssetsModel
+      .find({ user_id: { $eq: id } })
+      .exec();
     return !isEmpty(record) ? new Record(record) : new RecordNotFound();
   }
 }
