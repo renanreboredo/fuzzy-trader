@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { FinancialAsset } from 'src/domain/financial-asset';
-import { Response } from 'src/domain/response';
-import { FinancialAssetsService } from 'src/services/financial-assets';
+import { FinancialAsset } from '../domain/financial-asset';
+import { Response } from '../domain/response';
+import { FinancialAssetsService } from '../services/financial-assets';
 
 @Controller('wallet')
 export class WalletsController {
@@ -18,6 +18,7 @@ export class WalletsController {
       : new Response(
           {
             message: 'Found no asset to given user',
+            data: [],
           },
           true,
         );

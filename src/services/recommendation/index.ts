@@ -1,42 +1,106 @@
 import { Injectable } from '@nestjs/common';
+import { Recommendation } from '../../domain/recommendation';
+import { Maybe, Record, RecordNotFound } from '../../domain/record';
 import { AlphaAdvantageService } from '../alpha-advantage';
-import {
-  mockBitcoinExchangeRate,
-  mockCryptoRating,
-  mockIntradaySeries,
-  mockMonthSeries,
-} from '../req.mock';
 
 @Injectable()
 export class RecommendationService {
+  conservative: Maybe<any>;
+  moderate: Maybe<any>;
+  aggressive: Maybe<any>;
+
   constructor(private alphaAdvantage: AlphaAdvantageService) {}
-  async getRecommendation(amount: number): Promise<any> {
-    const conservative = this.chooseBestOption({
-      day: [mockIntradaySeries, mockIntradaySeries],
-      month: [mockMonthSeries, mockMonthSeries],
-    });
-    const moderate = this.chooseBestOption({
-      day: [mockIntradaySeries, mockIntradaySeries],
-      month: [mockMonthSeries, mockMonthSeries],
-    });
-    const aggressive =
-      Number(mockCryptoRating['Crypto Rating (FCAS)']['4. fcas score']) > 749 &&
-      Number(
-        mockBitcoinExchangeRate['Realtime Currency Exchange Rate'][
-          '8. Bid Price'
-        ],
-      ) <= amount
-        ? mockBitcoinExchangeRate['Realtime Currency Exchange Rate']
-        : {};
-    return {
-      conservative:
-        Number(conservative['1. open']) <= amount ? conservative : {},
-      moderate: Number(moderate['1. open']) <= amount ? moderate : {},
-      aggressive,
-    };
+
+  async getRecommendation(
+    amount: number,
+    simulation = false,
+  ): Promise<Maybe<Recommendation>> {
+    const day = await this.alphaAdvantage.getStockValuesDay(simulation);
+    const month = await this.alphaAdvantage.getStockValuesMonth(simulation);
+    const cryptoRating = await this.alphaAdvantage.getBitcoinCryptoRating(
+      simulation,
+    );
+    const exchangeRate = await this.alphaAdvantage.getUSDToBitcoinQuote(
+      simulation,
+    );
+
+    if (day.found && month.found) {
+      this.conservative = this.chooseBestConservativeOption(
+        amount,
+        day.just.conservative,
+        month.just.conservative,
+      );
+      this.moderate = this.chooseBestModerateOption(
+        amount,
+        day.just.moderate,
+        month.just.moderate,
+      );
+    }
+
+    if (cryptoRating.found && exchangeRate.found) {
+      this.aggressive = this.chooseBestAggressiveOption(
+        amount,
+        cryptoRating.just,
+        exchangeRate.just,
+      );
+    }
+
+    return this.conservative.found ||
+      this.moderate.found ||
+      this.aggressive.found
+      ? new Record({
+          conservative: this.conservative,
+          moderate: this.moderate,
+          aggressive: this.aggressive,
+        })
+      : new RecordNotFound();
   }
 
-  chooseBestOption({ day, month }: { day: any; month: any }): any {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  private chooseBestConservativeOption(
+    amount: number,
+    day: any,
+    month: any,
+  ): Maybe<any> {
+    const conservative = this.chooseBestOption({
+      day,
+      month,
+    });
+    return Number(conservative['1. open']) <= amount
+      ? new Record(conservative)
+      : new RecordNotFound();
+  }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  private chooseBestModerateOption(
+    amount: number,
+    day: any,
+    month: any,
+  ): Maybe<any> {
+    const moderate = this.chooseBestOption({
+      day,
+      month,
+    });
+    return Number(moderate['1. open']) <= amount
+      ? new Record(moderate)
+      : new RecordNotFound();
+  }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  private chooseBestAggressiveOption(
+    amount: number,
+    cryptoRating: any,
+    exchangeRate: any,
+  ): Maybe<any> {
+    return Number(cryptoRating['Crypto Rating (FCAS)']['4. fcas score']) >
+      749 &&
+      Number(exchangeRate['Realtime Currency Exchange Rate']['8. Bid Price']) <=
+        amount
+      ? new Record(exchangeRate['Realtime Currency Exchange Rate'])
+      : new RecordNotFound();
+  }
+
+  private chooseBestOption({ day, month }: { day: any; month: any }): any {
     const first = this.calculateRecommendationIndex({
       day: day[0],
       month: month[0],
@@ -48,7 +112,7 @@ export class RecommendationService {
     return first.index < second.index ? first.stock : second.stock;
   }
 
-  calculateRecommendationIndex({
+  private calculateRecommendationIndex({
     day,
     month,
   }: {

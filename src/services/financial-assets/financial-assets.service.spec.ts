@@ -1,15 +1,26 @@
-import { MongooseModule } from '@nestjs/mongoose';
+import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import { Test } from '@nestjs/testing';
 import { FinancialAssetsService } from '.';
+import { FinancialAssetsSchema } from '../../domain/schemas/financial-asset.schema';
 
 describe('FinancialAssetsService', () => {
   let financialAssetsService: FinancialAssetsService;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [MongooseModule],
+      imports: [
+        MongooseModule.forFeature([
+          { name: 'FinancialAsset', schema: FinancialAssetsSchema },
+        ]),
+      ],
       controllers: [],
-      providers: [FinancialAssetsService],
+      providers: [
+        FinancialAssetsService,
+        {
+          provide: getModelToken('FinancialAsset'),
+          useValue: FinancialAssetsSchema,
+        },
+      ],
     }).compile();
 
     financialAssetsService = moduleRef.get<FinancialAssetsService>(

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { FinancialAssetsSchema } from 'src/domain/schemas/financial-asset.schema';
-import { FinancialAssetsService } from 'src/services/financial-assets';
+import { FinancialAssetsSchema } from '../domain/schemas/financial-asset.schema';
+import { FinancialAssetsService } from '../services/financial-assets';
 import { WalletsController } from './wallets.controller';
 
 @Module({

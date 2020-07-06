@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { isEmpty } from 'lodash';
 import { Model } from 'mongoose';
-import { FinancialAsset } from 'src/domain/financial-asset';
-import { Maybe, Record, RecordNotFound } from 'src/domain/record';
+import { FinancialAsset } from '../../domain/financial-asset';
+import { Maybe, Record, RecordNotFound } from '../../domain/record';
 
 @Injectable()
 export class FinancialAssetsService {
@@ -14,6 +14,6 @@ export class FinancialAssetsService {
 
   async getByUserId(id: number): Promise<Maybe<FinancialAsset[]>> {
     const record = await this.financialAssetsModel.find().exec();
-    return isEmpty(record) ? new Record(record) : new RecordNotFound();
+    return !isEmpty(record) ? new Record(record) : new RecordNotFound();
   }
 }
