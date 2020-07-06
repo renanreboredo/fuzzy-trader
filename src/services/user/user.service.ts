@@ -19,6 +19,11 @@ export class UserService {
     return !isEmpty(user) ? new Record(user) : new RecordNotFound();
   }
 
+  async findByID(id: string): Promise<Maybe<User>> {
+    const user = await this.userModel.findOne({ _id: { $eq: id } }).exec();
+    return !isEmpty(user) ? new Record(user) : new RecordNotFound();
+  }
+
   async create(user: User) {
     const createdUser = new this.userModel(user);
     return await createdUser.save();

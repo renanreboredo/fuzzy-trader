@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UserModule } from 'src/user/user.module';
 import { FinancialAssetsSchema } from '../domain/schemas/financial-asset.schema';
 import { FinancialAssetsService } from '../services/financial-assets';
 import { WalletsController } from './wallets.controller';
@@ -9,6 +10,7 @@ import { WalletsController } from './wallets.controller';
     MongooseModule.forFeature([
       { name: 'FinancialAssets', schema: FinancialAssetsSchema },
     ]),
+    UserModule,
   ],
   controllers: [WalletsController],
   providers: [FinancialAssetsService],

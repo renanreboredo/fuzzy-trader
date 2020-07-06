@@ -1,7 +1,7 @@
 export const mockMonthSeries = {
   'Meta Data': {
     '1. Information': 'Monthly Prices (open, high, low, close) and Volumes',
-    '2. Symbol': 'ABEV',
+    '2. Symbol': 'IBM',
     '3. Last Refreshed': '2020-06-29',
     '4. Time Zone': 'US/Eastern',
   },

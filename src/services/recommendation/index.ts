@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { floor } from 'lodash';
+import { FinancialAsset } from '../../domain/financial-asset';
 import { Recommendation } from '../../domain/recommendation';
 import { Maybe, Record, RecordNotFound } from '../../domain/record';
 import { AlphaAdvantageService } from '../alpha-advantage';
@@ -49,11 +51,44 @@ export class RecommendationService {
       this.moderate.found ||
       this.aggressive.found
       ? new Record({
-          conservative: this.conservative,
-          moderate: this.moderate,
-          aggressive: this.aggressive,
+          conservative: this.buildFinancialAsset(
+            'stock',
+            this.conservative,
+            amount,
+          ),
+          moderate: this.buildFinancialAsset('stock', this.moderate, amount),
+          aggressive: this.buildFinancialAsset(
+            'crypto',
+            this.aggressive,
+            amount,
+          ),
         })
       : new RecordNotFound();
+  }
+
+  private buildFinancialAsset(
+    type: 'crypto' | 'stock',
+    asset: Maybe<any>,
+    amount: number,
+  ): Maybe<FinancialAsset> {
+    if (!asset.found) {
+      return new RecordNotFound();
+    }
+    return type === 'crypto'
+      ? new Record({
+          user_id: '',
+          type,
+          symbol: asset.just['1. From_Currency Code'],
+          buyingPrice: asset.just['8. Bid Price'],
+          quantity: floor(amount / asset.just['8. Bid Price']),
+        } as FinancialAsset)
+      : new Record({
+          user_id: '',
+          type,
+          symbol: asset.just['symbol'],
+          buyingPrice: asset.just['1. open'],
+          quantity: floor(amount / asset.just['1. open']),
+        } as FinancialAsset);
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -126,8 +161,10 @@ export class RecommendationService {
     });
     return {
       index: seriesIndex[0] / seriesIndex[9],
-      stock:
-        day['Time Series (5min)'][Object.keys(day['Time Series (5min)'])[0]],
+      stock: {
+        ...day['Time Series (5min)'][Object.keys(day['Time Series (5min)'])[0]],
+        symbol: day['Meta Data']['2. Symbol'],
+      },
     };
   }
 }
