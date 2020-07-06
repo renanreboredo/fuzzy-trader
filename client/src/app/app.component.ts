@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Response } from '../../../src/domain/Response';
+import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Response } from '../../../src/domain/response-generic';
 
 @Component({
   selector: 'app-root',

@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { Response } from '../domain/Response';
+import { Response } from '../domain/response-generic';
 import { RecommendationService } from '../services/recommendation';
 
 @Controller('investments')
