@@ -9,18 +9,16 @@ export class InvestmentsController {
   @Get(':amount')
   async get(@Param('amount') amount: number): Promise<Response<any>> {
     if (amount < 0) {
-      return {
-        message: 'Amount cannot be negative',
-        error: true,
-        code: 500,
-        data: {},
-      };
+      return new Response(
+        {
+          message: 'Amount cannot be negative',
+        },
+        true,
+      );
     }
-    return {
+    return new Response({
       message: '',
-      error: false,
-      code: 200,
       data: await this.recommendation.getRecommendation(amount),
-    };
+    });
   }
 }

@@ -1,8 +1,17 @@
-import { Record } from './record';
+import { isUndefined } from 'lodash';
 
-export interface Response<T> {
-  code: number;
+export class Response<T> {
   message: string;
-  error?: boolean;
-  data?: Record<T>;
+  error = false;
+  data?: T;
+  constructor(
+    { message, data }: { message: string; data?: T },
+    error?: boolean,
+  ) {
+    this.message = message;
+    if (isUndefined(data)) {
+      this.data = data;
+    }
+    this.error = isUndefined(error) ? this.error : error;
+  }
 }

@@ -7,7 +7,7 @@ export class RecordNotFound {
 export class Record<T> {
   found: true = true;
   just: T;
-  constructor(_just: T) {
-    this.just = _just;
+  constructor(just: T) {
+    this.just = just;
   }
 }
