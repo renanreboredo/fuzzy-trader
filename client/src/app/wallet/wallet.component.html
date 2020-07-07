@@ -14,7 +14,7 @@
       [ngClass]="{'justify-center items-center': (loading$ | async )}">
       <h2 *ngIf="(loading$ | async )" class="spinner spinner-white spinner-large border-indigo-300 text-5xl font-bold text-indigo-400 mt-4"></h2>
       <div *ngIf="!(loading$ | async )">
-        <app-asset *ngFor="let asset of assets" [data]="asset"></app-asset>
+        <app-asset *ngFor="let asset of assets" [showLabel]="false" [data]="asset"></app-asset>
       </div>
     </div>
   </div>

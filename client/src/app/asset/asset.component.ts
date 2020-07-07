@@ -12,4 +12,6 @@ export class AssetComponent {
     symbol: string,
     total: number
   };
+  @Input() label = '';
+  @Input() showLabel = true;
 }
