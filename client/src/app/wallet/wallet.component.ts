@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { FinancialAsset } from '../../../../src/domain/financial-asset';
 import { Response } from '../../../../src/domain/response';
 
 @Component({
@@ -11,7 +10,7 @@ import { Response } from '../../../../src/domain/response';
 })
 export class WalletComponent implements OnInit {
   private userId = '5f02d3d15b1ada4b2c13446a';
-  assets: FinancialAsset[];
+  assets: any[] = [];
   total = '10.0';
   error = false;
   message$: BehaviorSubject<string> = new BehaviorSubject<any>('');
@@ -26,7 +25,13 @@ export class WalletComponent implements OnInit {
         this.message$.next(message);
         this.loading$.next(false);
         if (!error) {
-          console.log(data);
+          this.assets = data.map(asset => ({
+            buyingPrice: asset.buyingPrice,
+            quantity: asset.quantity,
+            symbol: asset.symbol,
+            total: asset.buyingPrice * asset.quantity
+          }));
+          this.total = this.assets.reduce((prev, cur) => prev + cur.total, 0);
         }
       },
       () => {

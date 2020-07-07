@@ -1,5 +1,6 @@
 <div class="w-full h-screen flex flex-row">
-  <div class="w-1/3 h-full inline-flex flex-col justify-center items-center">
+  <div class="absolute w-1/3 h-full inline-flex flex-col justify-center items-center">
+    <a routerLink="" class="absolute left-0 top-0 pt-12 pl-12 text-indigo-300 underline cursor-pointer">Back to investment</a>
     <h1 class="text-indigo-300 text-6xl">Wallet</h1>
     <div class="inline-flex flex-col justify-center items-center mt-12">
       <h3 class="text-xl text-indigo-300">Sum of Assets</h3>
@@ -7,11 +8,14 @@
       <h2 *ngIf="(loading$ | async )" class="spinner spinner-blue spinner-large border-indigo-300 text-5xl font-bold text-indigo-400 mt-4"></h2>
     </div>
   </div>
-  <div class="w-2/3 h-full bg-indigo-300 inline-flex flex-col">
-    <h2 class="text-indigo-100 text-3xl w-full pt-12 pl-12">Assets</h2>
-    <div class="w-full h-full">
+  <div class="absolute right-0 w-2/3 h-full bg-indigo-300 inline-flex flex-col">
+    <h2 class="text-indigo-100 text-3xl w-full pt-12 pl-12 font-bold">Assets</h2>
+    <div class="fixed mt-32 ml-6 w-full h-full inline-flex justify-center items-center overflow-y-scroll scrolling-auto scroll"
+      [ngClass]="{'justify-center items-center': (loading$ | async )}">
       <h2 *ngIf="(loading$ | async )" class="spinner spinner-white spinner-large border-indigo-300 text-5xl font-bold text-indigo-400 mt-4"></h2>
+      <div *ngIf="!(loading$ | async )">
+        <app-asset *ngFor="let asset of assets" [data]="asset"></app-asset>
+      </div>
     </div>
-    <h2 *ngIf="(loading$ | async )" class="spinner spinner-blue spinner-large border-indigo-300 text-5xl font-bold text-indigo-400 mt-4"></h2>
   </div>
 </div>
