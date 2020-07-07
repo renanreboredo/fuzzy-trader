@@ -1,13 +1,12 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { AssetComponent } from './asset/asset.component';
 import { TraderComponent } from './trader/trader.component';
 import { WalletComponent } from './wallet/wallet.component';
-import { AssetComponent } from './asset/asset.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,7 @@ import { AssetComponent } from './asset/asset.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

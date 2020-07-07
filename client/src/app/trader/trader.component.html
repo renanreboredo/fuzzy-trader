@@ -15,18 +15,19 @@
     <h2 class="text-indigo-100">How much do you wanna invest?</h2>
     <div class="inline-flex flex-row justify-around items-center my-6">
       <label class="text-indigo-100 font-bold w-1/4" for="amount">US$</label>
-      <input class="bg-indigo-100 rounded-md w-2/4 p-2 text-lg border-2 hover:bg-gray-200 transition duration-200 visited:border-gray-400 border-gray-400 focus:border-blue-500" type="text" name="amount" [(ngModel)]="amount">
+      <input class="bg-indigo-100 rounded-md w-2/4 p-2 text-lg border-2 hover:bg-gray-200 transition duration-200 visited:border-gray-400 border-gray-400 focus:border-blue-500"
+        pattern="^\d+(\.|\,)\d{2}$" type="number" name="amount" [(ngModel)]="amount">
     </div>
     <small *ngIf="error" class="mb-4 text-red-400">{{ message$ | async }}</small>
-    <button class="rounded-md bg-indigo-500 py-2 px-8 text-indigo-100 border-white border hover:bg-indigo-400 transition duration-200" (click)="trade()">
+    <button class="rounded-md bg-indigo-500 py-2 px-8 text-indigo-100 border-white border hover:bg-indigo-400 transition duration-200" (click)="suggest()">
       <span *ngIf="!(loading$ | async )">Suggest</span>
       <span *ngIf="(loading$ | async )" class="spinner spinner-white"></span>
     </button>
   </div>
   <h2 class="text-5xl font-bold text-white my-4">Choose Investment</h2>
   <div class="inline-flex flex-row justify-around items-center h-full rounded-lg">
-    <app-asset [data]="conservative$ | async"></app-asset>
-    <app-asset [data]="moderate$ | async"></app-asset>
-    <app-asset [data]="aggressive$ | async"></app-asset>
+    <app-asset (click)="addToWallet(conservative$)" [data]="conservative$ | async"></app-asset>
+    <app-asset (click)="addToWallet(moderate$)" [data]="moderate$ | async"></app-asset>
+    <app-asset (click)="addToWallet(aggressive$)" [data]="aggressive$ | async"></app-asset>
   </div>
 </div>
