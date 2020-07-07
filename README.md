@@ -19,7 +19,7 @@ Critérios:
 
 ## Solução
 
-A solução atualmente se encontra incompleta. Ela apenas sugere 3 opções de investimento para um determinado valor, com três classificações: conservador, moderado e agressivo. Na modalidade conservadora, a API escolhe entre duas ações com índice Beta de variação baixo, IBM e ABEV, e determina através de um cálculo baseado nos dez últimos valores de máximo e mínimo das duas ações qual vale mais a pena ser escolhida. Na modalidade moderada, escolhe de duas ações com Índice Beta mediano, VALE e ITUB. Na modalidade agressiva, a API considera a Bitcoin como valor de investimento, mas apenas se o "Crypto Rating", conforme dado pela [Alpha Advantage](https://www.alphavantage.co/documentation/#crypto-ratings) está acima de Atrativo.
+Ela apenas sugere 3 opções de investimento para um determinado valor, com três classificações: conservador, moderado e agressivo. Na modalidade conservadora, a API escolhe entre duas ações com índice Beta de variação baixo, IBM e ABEV, e determina através de um cálculo baseado nos dez últimos valores de máximo e mínimo das duas ações qual vale mais a pena ser escolhida. Na modalidade moderada, escolhe de duas ações com Índice Beta mediano, VALE e ITUB. Na modalidade agressiva, a API considera a Bitcoin como valor de investimento, mas apenas se o "Crypto Rating", conforme dado pela [Alpha Advantage](https://www.alphavantage.co/documentation/#crypto-ratings) está acima de Atrativo.
 
 Nas três, o investimento é ignorado se o valor não é suficiente ou é negativo.
 
@@ -46,12 +46,10 @@ Embora não implementado, o banco escolhido foi o MongoDB por dois motivos princ
 
 ### Limitações
 
- - O sistema não possui persistência dos dados
- - Os dados vindos da APIs estão atualmente mockados pela limitação das requisições à API, embora as funções que consomem os dados foram construídas com os endpoints reais e os dados são baseados nos dados de demo no site da Alpha Advantage
+Pelo limite na quantidade de requisições, foi criado um módulo de simulação para poder demonstrar a lógica da aplicação. As chamadas ainda são realizadas com a API mas é bastante frequente não conseguir concluir por limite nas requisições. 
 
-### Dificuldades e Próximos passos
-Eu tentei entender a fundo o pouco de mercado de ações que a solução pedia para eu poder fazer a menor quantidade de código possível que atendesse os requisitos, e de uma forma que uma possível pessoa que fosse utilizar essas recomendações se interessaria. Para isso, eu consultei alguns conhecidos sobre como eles pesquisavam sobre ações e obtive algumas informações sobre os índices e formas que iam me ajudar a dar uma recomendação melhor para o usuário. Embora tenha sido interessante esse conhecimento e me deu vários insights sobre o exercicio, acredito que eu tentei ir fundo demais nesse problema e não consegui entregar uma solução suficiente no fim.
+### Próximos passos
 
-Próximos passos seriam construir a lógica de wallet, melhorar a heurística de recomendação e criar uma forma de conseguir consumir os dados sem estourar o plano de consumo. Um problema grande que descobri entre minhas pesquisas é que os dados são atualizados com uma periodicidade bem grande em outras plataformas de recomendação de ações, então seria interessante colocar esse diferencial para funcionar, mas acredito que descobri porque é difícil dessas ferramentas implementarem isso haha
+Adicionar mais fontes de consumo
 
 ## Agradeço pela oportunidade desde já
