@@ -7,12 +7,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { TraderComponent } from './trader/trader.component';
 import { WalletComponent } from './wallet/wallet.component';
+import { AssetComponent } from './asset/asset.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TraderComponent,
-    WalletComponent
+    WalletComponent,
+    AssetComponent
   ],
   imports: [
     BrowserModule,
