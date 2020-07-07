@@ -20,7 +20,7 @@
     <small *ngIf="error" class="mb-4 text-red-400">{{ message$ | async }}</small>
     <button class="rounded-md bg-indigo-500 py-2 px-8 text-indigo-100 border-white border hover:bg-indigo-400 transition duration-200" (click)="trade()">
       <span *ngIf="!(loading$ | async )">Suggest</span>
-      <span *ngIf="(loading$ | async )" class="spinner"></span>
+      <span *ngIf="(loading$ | async )" class="spinner spinner-white"></span>
     </button>
   </div>
   <h2 class="text-5xl font-bold text-white my-4">Choose Investment</h2>
